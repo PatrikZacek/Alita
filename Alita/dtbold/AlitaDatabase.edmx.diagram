@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="575e8bedf0cc460093efc6d565d5a7ff" Name="Diagram1">
+        <EntityTypeShape EntityType="Alita.Agv" Width="1.5" PointX="5.25" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Alita.Device" Width="1.5" PointX="3" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Alita.ErrorReport" Width="1.5" PointX="7.5" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Alita.ExternalDevice" Width="1.5" PointX="5.25" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Alita.Job" Width="1.5" PointX="10.5" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Alita.Location" Width="1.5" PointX="3" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Alita.Platform" Width="1.5" PointX="3" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Alita.RobotServer" Width="1.5" PointX="8.25" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Alita.Supplier" Width="1.5" PointX="0.75" PointY="8.625" IsExpanded="true" />
+        <AssociationConnector Association="Alita.Agv_Device_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="Alita.Agv_Platform_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="Alita.Agv_RobotServer_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="Alita.ErrorReport_Agv_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="Alita.Job_Agv_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="Alita.Device_Supplier_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="Alita.ExternalDevice_Device_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="Alita.RobotServer_Device_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="Alita.ExternalDevice_Location_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="Alita.Job_RobotServer_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="Alita.RobotServer_Location_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="Alita.Platform_Supplier_FK" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

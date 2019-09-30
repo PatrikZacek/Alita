@@ -1,0 +1,322 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Alita" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Agv">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" />
+    <Property Name="WasBought" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="NameOnServer" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Owner" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Platform_Id" Type="Int64" />
+    <Property Name="Device_Id" Type="Int64" />
+    <Property Name="ServerId" Type="Int64" />
+    <NavigationProperty Name="Device" Relationship="Self.Agv_Device_FK" FromRole="Agv" ToRole="Device" />
+    <NavigationProperty Name="Platform" Relationship="Self.Agv_Platform_FK" FromRole="Agv" ToRole="Platform" />
+    <NavigationProperty Name="RobotServer" Relationship="Self.Agv_RobotServer_FK" FromRole="Agv" ToRole="RobotServer" />
+    <NavigationProperty Name="ErrorReport" Relationship="Self.ErrorReport_Agv_FK" FromRole="Agv" ToRole="ErrorReport" />
+    <NavigationProperty Name="Job" Relationship="Self.Job_Agv_FK" FromRole="Agv" ToRole="Job" />
+  </EntityType>
+  <EntityType Name="Device">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" />
+    <Property Name="Hostname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Ip" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Port" Type="Int64" Nullable="false" />
+    <Property Name="Supplier_FK" Type="Int64" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Agv" Relationship="Self.Agv_Device_FK" FromRole="Device" ToRole="Agv" />
+    <NavigationProperty Name="Supplier" Relationship="Self.Device_Supplier_FK" FromRole="Device" ToRole="Supplier" />
+    <NavigationProperty Name="ExternalDevice" Relationship="Self.ExternalDevice_Device_FK" FromRole="Device" ToRole="ExternalDevice" />
+    <NavigationProperty Name="RobotServer" Relationship="Self.RobotServer_Device_FK" FromRole="Device" ToRole="RobotServer" />
+  </EntityType>
+  <EntityType Name="ErrorReport">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" />
+    <Property Name="WhenHappend" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="EstopPressed" Type="Boolean" Nullable="false" />
+    <Property Name="PositionX" Type="Int64" Nullable="false" />
+    <Property Name="PositionY" Type="Int64" Nullable="false" />
+    <Property Name="Heading" Type="Int32" Nullable="false" />
+    <Property Name="Log" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="AGV_FK" Type="Int64" />
+    <NavigationProperty Name="Agv" Relationship="Self.ErrorReport_Agv_FK" FromRole="ErrorReport" ToRole="Agv" />
+  </EntityType>
+  <EntityType Name="ExternalDevice">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" />
+    <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Location_FK" Type="Int64" />
+    <Property Name="Device_Id" Type="Int64" />
+    <Property Name="Callname" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Device" Relationship="Self.ExternalDevice_Device_FK" FromRole="ExternalDevice" ToRole="Device" />
+    <NavigationProperty Name="Location" Relationship="Self.ExternalDevice_Location_FK" FromRole="ExternalDevice" ToRole="Location" />
+  </EntityType>
+  <EntityType Name="Job">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="Server_Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" />
+    <Property Name="IdOnServer" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="SourceGoal" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TargetGoal" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Queued" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Finnished" Type="DateTime" Precision="3" />
+    <Property Name="Server_Id" Type="Int64" Nullable="false" />
+    <Property Name="Agv_Id" Type="Int64" />
+    <NavigationProperty Name="Agv" Relationship="Self.Job_Agv_FK" FromRole="Job" ToRole="Agv" />
+    <NavigationProperty Name="RobotServer" Relationship="Self.Job_RobotServer_FK" FromRole="Job" ToRole="RobotServer" />
+  </EntityType>
+  <EntityType Name="Location">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="ExternalDevice" Relationship="Self.ExternalDevice_Location_FK" FromRole="Location" ToRole="ExternalDevice" />
+    <NavigationProperty Name="RobotServer" Relationship="Self.RobotServer_Location_FK" FromRole="Location" ToRole="RobotServer" />
+  </EntityType>
+  <EntityType Name="Platform">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" />
+    <Property Name="Type" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Comment" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Supplier_Id" Type="Int64" />
+    <NavigationProperty Name="Agv" Relationship="Self.Agv_Platform_FK" FromRole="Platform" ToRole="Agv" />
+    <NavigationProperty Name="Supplier" Relationship="Self.Platform_Supplier_FK" FromRole="Platform" ToRole="Supplier" />
+  </EntityType>
+  <EntityType Name="RobotServer">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" />
+    <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Location_FK" Type="Int64" />
+    <Property Name="Device_Id" Type="Int64" />
+    <NavigationProperty Name="Agv" Relationship="Self.Agv_RobotServer_FK" FromRole="RobotServer" ToRole="Agv" />
+    <NavigationProperty Name="Device" Relationship="Self.RobotServer_Device_FK" FromRole="RobotServer" ToRole="Device" />
+    <NavigationProperty Name="Job" Relationship="Self.Job_RobotServer_FK" FromRole="RobotServer" ToRole="Job" />
+    <NavigationProperty Name="Location" Relationship="Self.RobotServer_Location_FK" FromRole="RobotServer" ToRole="Location" />
+  </EntityType>
+  <EntityType Name="Supplier">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Device" Relationship="Self.Device_Supplier_FK" FromRole="Supplier" ToRole="Device" />
+    <NavigationProperty Name="Platform" Relationship="Self.Platform_Supplier_FK" FromRole="Supplier" ToRole="Platform" />
+  </EntityType>
+  <Association Name="Agv_Device_FK">
+    <End Role="Device" Type="Self.Device" Multiplicity="0..1" />
+    <End Role="Agv" Type="Self.Agv" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Device">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Agv">
+        <PropertyRef Name="Device_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Agv_Platform_FK">
+    <End Role="Platform" Type="Self.Platform" Multiplicity="0..1" />
+    <End Role="Agv" Type="Self.Agv" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Platform">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Agv">
+        <PropertyRef Name="Platform_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Agv_RobotServer_FK">
+    <End Role="RobotServer" Type="Self.RobotServer" Multiplicity="0..1" />
+    <End Role="Agv" Type="Self.Agv" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RobotServer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Agv">
+        <PropertyRef Name="ServerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ErrorReport_Agv_FK">
+    <End Role="Agv" Type="Self.Agv" Multiplicity="0..1" />
+    <End Role="ErrorReport" Type="Self.ErrorReport" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Agv">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ErrorReport">
+        <PropertyRef Name="AGV_FK" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Job_Agv_FK">
+    <End Role="Agv" Type="Self.Agv" Multiplicity="0..1" />
+    <End Role="Job" Type="Self.Job" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Agv">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Job">
+        <PropertyRef Name="Agv_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Device_Supplier_FK">
+    <End Role="Supplier" Type="Self.Supplier" Multiplicity="0..1" />
+    <End Role="Device" Type="Self.Device" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Supplier">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Device">
+        <PropertyRef Name="Supplier_FK" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ExternalDevice_Device_FK">
+    <End Role="Device" Type="Self.Device" Multiplicity="0..1" />
+    <End Role="ExternalDevice" Type="Self.ExternalDevice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Device">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ExternalDevice">
+        <PropertyRef Name="Device_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RobotServer_Device_FK">
+    <End Role="Device" Type="Self.Device" Multiplicity="0..1" />
+    <End Role="RobotServer" Type="Self.RobotServer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Device">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RobotServer">
+        <PropertyRef Name="Device_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ExternalDevice_Location_FK">
+    <End Role="Location" Type="Self.Location" Multiplicity="0..1" />
+    <End Role="ExternalDevice" Type="Self.ExternalDevice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Location">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ExternalDevice">
+        <PropertyRef Name="Location_FK" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Job_RobotServer_FK">
+    <End Role="RobotServer" Type="Self.RobotServer" Multiplicity="1" />
+    <End Role="Job" Type="Self.Job" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RobotServer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Job">
+        <PropertyRef Name="Server_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RobotServer_Location_FK">
+    <End Role="Location" Type="Self.Location" Multiplicity="0..1" />
+    <End Role="RobotServer" Type="Self.RobotServer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Location">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RobotServer">
+        <PropertyRef Name="Location_FK" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Platform_Supplier_FK">
+    <End Role="Supplier" Type="Self.Supplier" Multiplicity="0..1" />
+    <End Role="Platform" Type="Self.Platform" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Supplier">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Platform">
+        <PropertyRef Name="Supplier_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="AlitaDatabase" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Agv" EntityType="Self.Agv" />
+    <EntitySet Name="Device" EntityType="Self.Device" />
+    <EntitySet Name="ErrorReport" EntityType="Self.ErrorReport" />
+    <EntitySet Name="ExternalDevice" EntityType="Self.ExternalDevice" />
+    <EntitySet Name="Job" EntityType="Self.Job" />
+    <EntitySet Name="Location" EntityType="Self.Location" />
+    <EntitySet Name="Platform" EntityType="Self.Platform" />
+    <EntitySet Name="RobotServer" EntityType="Self.RobotServer" />
+    <EntitySet Name="Supplier" EntityType="Self.Supplier" />
+    <AssociationSet Name="Agv_Device_FK" Association="Self.Agv_Device_FK">
+      <End Role="Device" EntitySet="Device" />
+      <End Role="Agv" EntitySet="Agv" />
+    </AssociationSet>
+    <AssociationSet Name="Agv_Platform_FK" Association="Self.Agv_Platform_FK">
+      <End Role="Platform" EntitySet="Platform" />
+      <End Role="Agv" EntitySet="Agv" />
+    </AssociationSet>
+    <AssociationSet Name="Agv_RobotServer_FK" Association="Self.Agv_RobotServer_FK">
+      <End Role="RobotServer" EntitySet="RobotServer" />
+      <End Role="Agv" EntitySet="Agv" />
+    </AssociationSet>
+    <AssociationSet Name="ErrorReport_Agv_FK" Association="Self.ErrorReport_Agv_FK">
+      <End Role="Agv" EntitySet="Agv" />
+      <End Role="ErrorReport" EntitySet="ErrorReport" />
+    </AssociationSet>
+    <AssociationSet Name="Job_Agv_FK" Association="Self.Job_Agv_FK">
+      <End Role="Agv" EntitySet="Agv" />
+      <End Role="Job" EntitySet="Job" />
+    </AssociationSet>
+    <AssociationSet Name="Device_Supplier_FK" Association="Self.Device_Supplier_FK">
+      <End Role="Supplier" EntitySet="Supplier" />
+      <End Role="Device" EntitySet="Device" />
+    </AssociationSet>
+    <AssociationSet Name="ExternalDevice_Device_FK" Association="Self.ExternalDevice_Device_FK">
+      <End Role="Device" EntitySet="Device" />
+      <End Role="ExternalDevice" EntitySet="ExternalDevice" />
+    </AssociationSet>
+    <AssociationSet Name="RobotServer_Device_FK" Association="Self.RobotServer_Device_FK">
+      <End Role="Device" EntitySet="Device" />
+      <End Role="RobotServer" EntitySet="RobotServer" />
+    </AssociationSet>
+    <AssociationSet Name="ExternalDevice_Location_FK" Association="Self.ExternalDevice_Location_FK">
+      <End Role="Location" EntitySet="Location" />
+      <End Role="ExternalDevice" EntitySet="ExternalDevice" />
+    </AssociationSet>
+    <AssociationSet Name="Job_RobotServer_FK" Association="Self.Job_RobotServer_FK">
+      <End Role="RobotServer" EntitySet="RobotServer" />
+      <End Role="Job" EntitySet="Job" />
+    </AssociationSet>
+    <AssociationSet Name="RobotServer_Location_FK" Association="Self.RobotServer_Location_FK">
+      <End Role="Location" EntitySet="Location" />
+      <End Role="RobotServer" EntitySet="RobotServer" />
+    </AssociationSet>
+    <AssociationSet Name="Platform_Supplier_FK" Association="Self.Platform_Supplier_FK">
+      <End Role="Supplier" EntitySet="Supplier" />
+      <End Role="Platform" EntitySet="Platform" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

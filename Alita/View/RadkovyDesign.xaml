@@ -1,0 +1,42 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:models="clr-namespace:Alita.Models.AbstractModels"
+                    xmlns:interfaces="clr-namespace:Alita.Models.Interfaces"
+                    xmlns:local="clr-namespace:Alita.View">
+
+    <DataTemplate x:Key="AgvRadek" DataType="interfaces:IZarizeni">
+        <Grid Height="20" MinWidth="100">
+            <Grid Margin="0,0,2,0" HorizontalAlignment="Right" VerticalAlignment="Center" Width="13" Height="13">
+                <Ellipse x:Name="indikator" Fill="#FF9C9C9C" HorizontalAlignment="Stretch" Height="Auto" Margin="0" Stroke="#FF272727" VerticalAlignment="Stretch" Width="Auto" Uid="{Binding Status}"/>
+                <Ellipse Fill="White" HorizontalAlignment="Stretch" Height="Auto" Margin="2" Stroke="{x:Null}" VerticalAlignment="Stretch" Width="Auto" Opacity="0.3">
+                    <Ellipse.Effect>
+                        <BlurEffect/>
+                    </Ellipse.Effect>
+                </Ellipse>
+            </Grid>
+            <Label x:Name="Hostname" Content="{Binding Hostname}" HorizontalAlignment="Left" Margin="2,0,0,2" VerticalAlignment="Center" Padding="0" Foreground="#FFCBCBCB" FontSize="13"/>
+            <Label x:Name="ping" Content="{Binding Ping}" HorizontalAlignment="Right" Margin="0,0,18,0" VerticalAlignment="Center" Padding="0" Foreground="#FFCBCBCB" FontSize="11"/>
+        </Grid>
+        <DataTemplate.Triggers>
+            <Trigger Property="Uid" Value="Online" SourceName="indikator">
+                <Setter Property="Fill" TargetName="indikator" Value="#FF16AE2B"/>
+            </Trigger>
+            <Trigger Property="Uid" Value="Offline" SourceName="indikator">
+                <Setter Property="Fill" TargetName="indikator" Value="#FFFF8000"/>
+            </Trigger>
+            <Trigger Property="Uid" Value="InError" SourceName="indikator">
+                <Setter Property="Fill" TargetName="indikator" Value="#FFBB1818"/>
+            </Trigger>
+        </DataTemplate.Triggers>
+    </DataTemplate>
+    <DataTemplate x:Key="JobRadek" DataType="models:AbstractJob">
+        <Grid Height="20" MinWidth="100" Background="#19AAAAAA">
+            <DockPanel Margin="0">
+                <Label Content="{Binding ID}" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Center" Width="Auto" Padding="5,0" Foreground="#FFCBCBCB" FontSize="11"/>
+                <Label Content="{Binding CasVzniku}" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Center" Width="Auto" Padding="0,0,5,0" Foreground="#FFCBCBCB" FontSize="11"/>
+                <Label/>
+            </DockPanel>
+
+        </Grid>
+    </DataTemplate>
+</ResourceDictionary>

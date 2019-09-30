@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="AlitaStoreContainer" CdmEntityContainer="AlitaDatabase">
+    <EntitySetMapping Name="Agv">
+      <EntityTypeMapping TypeName="Alita.Agv">
+        <MappingFragment StoreEntitySet="Agv">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="WasBought" ColumnName="WasBought" />
+          <ScalarProperty Name="NameOnServer" ColumnName="NameOnServer" />
+          <ScalarProperty Name="Owner" ColumnName="Owner" />
+          <ScalarProperty Name="Platform_Id" ColumnName="Platform_Id" />
+          <ScalarProperty Name="Device_Id" ColumnName="Device_Id" />
+          <ScalarProperty Name="ServerId" ColumnName="ServerId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Device">
+      <EntityTypeMapping TypeName="Alita.Device">
+        <MappingFragment StoreEntitySet="Device">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Hostname" ColumnName="Hostname" />
+          <ScalarProperty Name="Ip" ColumnName="Ip" />
+          <ScalarProperty Name="Port" ColumnName="Port" />
+          <ScalarProperty Name="Supplier_FK" ColumnName="Supplier_FK" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ErrorReport">
+      <EntityTypeMapping TypeName="Alita.ErrorReport">
+        <MappingFragment StoreEntitySet="ErrorReport">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="WhenHappend" ColumnName="WhenHappend" />
+          <ScalarProperty Name="EstopPressed" ColumnName="EstopPressed" />
+          <ScalarProperty Name="PositionX" ColumnName="PositionX" />
+          <ScalarProperty Name="PositionY" ColumnName="PositionY" />
+          <ScalarProperty Name="Heading" ColumnName="Heading" />
+          <ScalarProperty Name="Log" ColumnName="Log" />
+          <ScalarProperty Name="AGV_FK" ColumnName="AGV_FK" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ExternalDevice">
+      <EntityTypeMapping TypeName="Alita.ExternalDevice">
+        <MappingFragment StoreEntitySet="ExternalDevice">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="Location_FK" ColumnName="Location_FK" />
+          <ScalarProperty Name="Device_Id" ColumnName="Device_Id" />
+          <ScalarProperty Name="Callname" ColumnName="Callname" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Job">
+      <EntityTypeMapping TypeName="Alita.Job">
+        <MappingFragment StoreEntitySet="Job">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="IdOnServer" ColumnName="IdOnServer" />
+          <ScalarProperty Name="SourceGoal" ColumnName="SourceGoal" />
+          <ScalarProperty Name="TargetGoal" ColumnName="TargetGoal" />
+          <ScalarProperty Name="Queued" ColumnName="Queued" />
+          <ScalarProperty Name="Finnished" ColumnName="Finnished" />
+          <ScalarProperty Name="Server_Id" ColumnName="Server_Id" />
+          <ScalarProperty Name="Agv_Id" ColumnName="Agv_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Location">
+      <EntityTypeMapping TypeName="Alita.Location">
+        <MappingFragment StoreEntitySet="Location">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Platform">
+      <EntityTypeMapping TypeName="Alita.Platform">
+        <MappingFragment StoreEntitySet="Platform">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="Supplier_Id" ColumnName="Supplier_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RobotServer">
+      <EntityTypeMapping TypeName="Alita.RobotServer">
+        <MappingFragment StoreEntitySet="RobotServer">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="Location_FK" ColumnName="Location_FK" />
+          <ScalarProperty Name="Device_Id" ColumnName="Device_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Supplier">
+      <EntityTypeMapping TypeName="Alita.Supplier">
+        <MappingFragment StoreEntitySet="Supplier">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
